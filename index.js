@@ -110,9 +110,19 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(getFinalscb) {
+function getAverageGoals(data) {
   /* code here */
+  // console.log(getFinalscb.toString());
+  const goalsPerGame = data.map(function (item) {
+    return item["Home Team Goals"] + item["Away Team Goals"];
+  });
+  const totalGoals = goalsPerGame.reduce(function (acc, item) {
+    return acc + item;
+  }, 0);
+
+  return (totalGoals / goalsPerGame.length).toFixed(2);
 }
+console.log("task 6", getAverageGoals(getFinals(fifaData)));
 
 /// 🥅 STRETCH 🥅 ///
 

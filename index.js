@@ -41,9 +41,9 @@ Use the higher-order function called getYears to do the following:
 3. Return an array called years containing all of the years in the getFinals data set*/
 
 // receive data (fifaData)/ getFinalscb(from task 2)
-function getYears(list, getFinalscb) {
+function getYears(data, getFinalscb) {
   // map through finals cb to get all of the years (item.Year)
-  const years = getFinalscb(list).map((item) => item.Year);
+  const years = getFinalscb(data).map((item) => item.Year);
   // return the array
   return years;
 }
@@ -57,15 +57,17 @@ Use the higher-order function getWinners to do the following:
 4. Returns the names of all winning countries in an array called `winners` */
 
 // 2 parameters data (fifaData) / getfinalscb
-function getWinners(list, getFinalscb) {
+function getWinners(data, getFinalscb) {
   /* code here */
-  const winners = getFinalscb(list).map(function (item) {
+  const winners = getFinalscb(data).map(function (item) {
     if (item["Home Team Goals"] > item["Away Team Goals"]) {
       return item["Home Team Name"];
     } else if (item["Home Team Goals"] < item["Away Team Goals"]) {
       return item["Away Team Name"];
-    } else {
-      return item["Win conditions"];
+    } else if (item["Win conditions"].includes(item["Home Team Name"])) {
+      return item["Home Team Name"];
+    } else if (item["Win conditions"].includes(item["Away Team Name"])) {
+      return item["Away Team Name"];
     }
   });
   // want an array of winners (don't worry about ties here)
@@ -85,9 +87,17 @@ hint: the strings returned need to exactly match the string in step 4.
 
 // probably use map here
 
-function getWinnersByYear(/* code here */) {
+function getWinnersByYear(data, getYearscb, getWinnerscb) {
   /* code here */
+  const winner = getWinnerscb(data, getFinals);
+  const year = getYearscb(data, getFinals);
+
+  return winner.map(function (item, index) {
+    return `In ${year[index]}, ${item} won the world cup!`;
+  });
 }
+
+console.log("task 5", getWinnersByYear(fifaData, getYears, getWinners));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Use the higher order function getAverageGoals to do the following: 
@@ -100,7 +110,7 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
+function getAverageGoals(getFinalscb) {
   /* code here */
 }
 

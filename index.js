@@ -41,10 +41,11 @@ Use the higher-order function called getYears to do the following:
 3. Return an array called years containing all of the years in the getFinals data set*/
 
 // receive data (fifaData)/ getFinalscb(from task 2)
-function getYears(/* code here */) {
+function getYears(list, getFinalscb) {
   // map through finals cb to get all of the years (item.Year)
+  const years = getFinalscb(list).map((item) => item.Year);
   // return the array
-  /* code here */
+  return years;
 }
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
